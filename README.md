@@ -1,10 +1,11 @@
 # odoo-alumnes
 
-Al fitxer de configuració d'Odoo, ```C:\Program files\odoo14\server\odoo.conf``` ja tinc afegida la ruta ```c:\odoo_custom_addons``` que és on vull desenvolupar el mòdul.
+Al fitxer de configuració d'Odoo, ```C:\Program files\odoo14\server\odoo.conf``` afegir la ruta ```c:\odoo_custom_addons``` que és on volem desenvolupar el mòdul.
 
 L'executable de Python que utilitza la meva instància d'Odoo es troba a la ruta ```C:\Program files\odoo14\python\python.exe``` i és la versió **```Python 3.7.7```**.
 
 He creat l'estructura de fitxers del meu mòdul executant la següent ordre:
+
 ```
 "C:/Program Files/Odoo 14.0.20220215/python/python.exe" "C:/Program Files/Odoo 14.0.20220215/server/odoo-bin" scaffold gestio_alumnes "C:/odoo_custom_addons"
 ```
@@ -35,11 +36,16 @@ gestio_alumnes
        veiws.xml
 ```
 
-Ja he reiniciat el servei d'Odoo, he actualitzat la llista d'aplicacions, m'ha aparegut l'aplicació ```gestio_alumnes``` i l'he instal·lada sense problemes.
+Cal seguir els següents passos:
+* Reiniciar el servei d'Odoo,
+* actualitzar la llista d'aplicacions, ha d'apareixer l'aplicació ```gestio_alumnes``` i
+* instal·lar-la, si tot va bé, sense problemes.
 
-Pas 1: Definir el Model de Dades
+## Pas 1: Definir el Model de Dades
 
-Al fitxer ```models.py```, definim els **models** que representaran les entitats de la nostra aplicació. Afegirem  les classes necessaries per representar **Alumnes**, **Mòduls Professionals**, **Unitats Formatives** i **Notes**.
+Al fitxer ```models.py```, definim els **models** que representaran les entitats de la nostra aplicació.
+
+Afegirem  les classes necessaries per representar **Alumnes**, **Mòduls Professionals**, **Unitats Formatives** i **Notes**.
 
 Podem utilitzar el codi següent com a punt de partida:
 
@@ -84,9 +90,12 @@ class Notes(models.Model):
     # Afegeix els altres camps aquí...
 
 ```
-Pas 2: Crear Vistes
 
-Al fitxer views.xml, defineix les vistes que mostraran la informació al frontend. Pots utilitzar el codi següent com a punt de partida:
+## Pas 2: Crear Vistes
+
+Al fitxer ```views.xml```, definir les vistes que mostraran la informació al **```frontend```**.
+
+Podem utilitzar el codi següent com a punt de partida:
 
 ```xml
 <!-- views.xml -->
@@ -132,8 +141,9 @@ Al fitxer views.xml, defineix les vistes que mostraran la informació al fronten
 </odoo>
 ```
 
-Pas 3: Crear Accessos i Seguretat
-Al fitxer ir.model.access.csv, defineix els permisos d'accés als models:
+## Pas 3: Crear Accessos i Seguretat
+
+Al fitxer **```ir.model.access.csv```**, defineix els permisos d'accés als models:
 
 ```csv
 # ir.model.access.csv
@@ -145,11 +155,15 @@ access_gestio_alumnes_unitats_formatives,gestio_alumnes.unitats_formatives,model
 access_gestio_alumnes_notes,gestio_alumnes.notes,model_gestio_alumnes_notes,base.group_user,1,1,1,1
 ```
 
-Pas 4: Reiniciar i Actualitzar
-Reinicieu el servidor d'Odoo.
-Actualitza la llista d'aplicacions i cerca la teva aplicació "Gestió Alumnes".
-Instal·la-la.
+## Pas 4: Reiniciar i Actualitzar
 
-Pas 5: Explora el teu Mòdul
-Accedeix a l'aplicació i explora les funcions que has creat.
-Podeu afegir, editar i eliminar registres.
+Ara cal:
+* reiniciar el servei d'Odoo,
+* actualitza la llista d'aplicacions i cercar la nostra aplicació "Gestió Alumnes" i
+* instal·lar-la.
+
+## Pas 5: Explora el nou mòdul
+
+* Accedir a l'aplicació i explorar les funcions que hem creat.
+* es poden afegir, editar i eliminar registres.
+
