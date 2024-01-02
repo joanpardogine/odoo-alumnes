@@ -1,15 +1,17 @@
 # odoo-alumnes
 
+Al fitxer de configuració d'Odoo, ```C:\Program files\odoo14\server\odoo.conf``` ja tinc afegida la ruta ```c:\odoo_custom_addons``` que és on vull desenvolupar el mòdul.
 
-En el fichero de configuración de Odoo, "C:\Program files\odoo14\server\odoo.conf" ya tengo añadida la ruta "c:\odoo_custom_addons" que es donde quiero desarrollar el módulo.
+L'executable de Python que utilitza la meva instància d'Odoo es troba a la ruta ```C:\Program files\odoo14\python\python.exe``` i és la versió **```Python 3.7.7```**.
 
-El ejecutable de Python que utiliza mi instancia de Odoo se encuentra en la ruta "C:\Program files\odoo14\python\python.exe" y es la versión Python 3.7.7.
-
-He creado la estructura de ficheros de mi modulo ejecutando el siguiente comando:
+He creat l'estructura de fitxers del meu mòdul executant la següent ordre:
+```
 "C:/Program Files/Odoo 14.0.20220215/python/python.exe" "C:/Program Files/Odoo 14.0.20220215/server/odoo-bin" scaffold gestio_alumnes "C:/odoo_custom_addons"
+```
 
-Y la estructura de ficheros de la carpeta c:\odoo_custom_addons\ es la siguiente:
+I l'estructura de fitxers de la carpeta ```c:\odoo_custom_addons\``` és la següent:
 
+```
 gestio_alumnes
 │   __init__.py
 │   __manifest__.py
@@ -31,14 +33,13 @@ gestio_alumnes
 └── views
        template.xml
        veiws.xml
+```
 
-Ya he reiniciado el servicio de Odoo, he actualizado la lista de aplicaciones, me ha aparecido la aplicación gestio_alumnes y la he instalado sin problemas.
-
-
+Ja he reiniciat el servei d'Odoo, he actualitzat la llista d'aplicacions, m'ha aparegut l'aplicació ```gestio_alumnes``` i l'he instal·lada sense problemes.
 
 Pas 1: Definir el Model de Dades
 
-Al fitxer models.py, definim els models que representaran les entitats de la nostra aplicació. Afegirem  les classes necessaries per representar Alumnes, Mòduls Professionals, Unitats Formatives i Notes.
+Al fitxer ```models.py```, definim els **models** que representaran les entitats de la nostra aplicació. Afegirem  les classes necessaries per representar **Alumnes**, **Mòduls Professionals**, **Unitats Formatives** i **Notes**.
 
 Podem utilitzar el codi següent com a punt de partida:
 
