@@ -83,72 +83,100 @@ class Notes(models.Model):
     # Afegeix els altres camps aquí...
 
 ```
-Pas 2: Crear Vistes
 
-Al fitxer views.xml, defineix les vistes que mostraran la informació al frontend. Pots utilitzar el codi següent com a punt de partida:
+
+Contingut del fitxer ```__manifest__.py```
+
+```py
+# __manifest__.py
+
+{
+    'name': 'Gestió Alumnes',
+    'version': '1.0',
+    'summary': 'Mòdul per gestionar les notes dels alumnes',
+    'description': """
+        Aquest mòdul gestiona la informació dels alumnes i les seves notes.
+    """,
+    'author': 'Joan Pardo',
+    'depends': ['base'],
+    'data': [
+        'views/alumne_views.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}
+
+```
+
+Contingut del fitxer ```models.py```
+
+# models.py
+```py
+# models.py
+
+from odoo import models, fields
+
+class Alumne(models.Model):
+    _name = 'gestio_alumnes.alumne'
+    _description = "Informació de l'Alumne"
+
+    name = fields.Char(string='Nom', required=True)
+    notes = fields.One2many('gestio_alumnes.nota', 'alumne_id', string='Notes')
+
+class Nota(models.Model):
+    _name = 'gestio_alumnes.nota'
+    _description = 'Notes de l\'Alumne'
+
+    alumne_id = fields.Many2one('gestio_alumnes.alumne', string='Alumne', required=True)
+    assignatura = fields.Char(string='Assignatura', required=True)
+    puntuacio = fields.Float(string='Puntuació')
+```
+
+Contingut del fitxer ```__manifest__.py```
+
+```py
+{
+    'name': 'Gestió alumnes',
+    'version': '1.0',
+    'summary': 'Mòdul per gestionar alumnes i les seves notes',
+    'description': """
+        Aquest mòdul serveix per gestionar els alumnes i les seves notes.
+    """,
+    'author': 'Joan Pardo',
+    'depends': ['base'],
+    'data': [
+        'views/alumne_views.xml',  # Es crearà aquest fitxer més endavant
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}
+```
+
+```
+mkdir views
+
+cd views
+```
 
 ```xml
-<!-- views.xml -->
+<!-- alumne_views.xml -->
 
 <odoo>
     <data>
-
-        <!-- Vista per al formulari d'Alumnes -->
-        <record id="alumnes_form_view" model="ir.ui.view">
-            <field name="name">alumnes.form</field>
-            <field name="model">gestio_alumnes.alumnes</field>
+        <record id="view_alumne_form" model="ir.ui.view">
+            <field name="name">gestio_alumnes.alumne.form</field>
+            <field name="model">gestio_alumnes.alumne</field>
             <field name="arch" type="xml">
                 <form>
-                    <sheet>
-                        <!-- Defineix els camps del formulari aquí -->
-                        <group>
-                            <field name="nom_alumne"/>
-                            <field name="dni_alumne"/>
-                            <!-- Afegeix els altres camps aquí -->
-                        </group>
-                    </sheet>
+                    <group>
+                        <field name="nom"/>
+                        <field name="notes" widget="many2many_tags" options="{'no_create': True}"/>
+                    </group>
                 </form>
             </field>
         </record>
-
-        <!-- Vista per a la llista d'Alumnes -->
-        <record id="alumnes_tree_view" model="ir.ui.view">
-            <field name="name">alumnes.tree</field>
-            <field name="model">gestio_alumnes.alumnes</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <!-- Defineix les columnes de la llista aquí -->
-                    <field name="nom_alumne"/>
-                    <field name="dni_alumne"/>
-                    <!-- Afegeix els altres camps aquí -->
-                </tree>
-            </field>
-        </record>
-
-        <!-- Afegeix vistes per a Mòduls Professionals, Unitats Formatives, Notes -->
-
     </data>
 </odoo>
 ```
-
-Pas 3: Crear Accessos i Seguretat
-Al fitxer ir.model.access.csv, defineix els permisos d'accés als models:
-
-```csv
-# ir.model.access.csv
-
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_gestio_alumnes_alumnes,gestio_alumnes.alumnes,model_gestio_alumnes_alumnes,base.group_user,1,1,1,1
-access_gestio_alumnes_moduls_professionals,gestio_alumnes.moduls_professionals,model_gestio_alumnes_moduls_professionals,base.group_user,1,1,1,1
-access_gestio_alumnes_unitats_formatives,gestio_alumnes.unitats_formatives,model_gestio_alumnes_unitats_formatives,base.group_user,1,1,1,1
-access_gestio_alumnes_notes,gestio_alumnes.notes,model_gestio_alumnes_notes,base.group_user,1,1,1,1
-```
-
-Pas 4: Reiniciar i Actualitzar
-Reinicieu el servidor d'Odoo.
-Actualitza la llista d'aplicacions i cerca la teva aplicació "Gestió Alumnes".
-Instal·la-la.
-
-Pas 5: Explora el teu Mòdul
-Accedeix a l'aplicació i explora les funcions que has creat.
-Podeu afegir, editar i eliminar registres.
